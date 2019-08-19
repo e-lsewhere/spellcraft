@@ -84,7 +84,7 @@ class HomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      "Spellcraft",
+                      "Spellcraft WOOHOO",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
