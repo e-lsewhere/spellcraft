@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 void main() => runApp(MyApp());
 
@@ -15,6 +17,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
+  final searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,7 +42,7 @@ class HomePage extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 12.0, right: 12.0, top: 30.0, bottom: 8.0),
+                    left: 12.0, right: 12.0, top: 45.0, bottom: 8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -84,7 +88,7 @@ class HomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      "Spellcraft WOOHOO",
+                      "Spellcraft",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -95,35 +99,33 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 45.0, right: 0.0, top: 15.0, bottom: 8.0),
+              Container(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Text(
-                      'All your favorite spells, in one location.',
+                      'Search for your favorite spells!',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white, fontSize: 17),
                     ),
                   ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 35.0, right: 0.0, top: 15.0, bottom: 8.0),
+                    left: 25.0, right: 0.0, top: 15.0, bottom: 8.0),
                 child: Row(
                   children: <Widget>[
                     Container(
                       width: 300,
-                      child: TextFormField(
+                      child: TextField(
+                        controller: searchController,
                         style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           hintText: 'e.g. ray of frost',
-                          hintStyle: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Montserrat-Black'),
+                          labelText: 'Search for a spell',
+                          hintStyle: TextStyle(fontFamily: 'Montserrat-Black'),
                           icon: Icon(Icons.arrow_forward_ios),
                         ),
                       ),
@@ -133,7 +135,7 @@ class HomePage extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 100.0, right: 0.0, top: 30.0, bottom: 8.0),
+                    left: 95.0, right: 0.0, top: 25.0, bottom: 8.0),
                 child: Row(
                   children: <Widget>[
                     Container(
@@ -144,7 +146,15 @@ class HomePage extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          return showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  content: Text(searchController.text),
+                                );
+                              });
+                        },
                         padding: const EdgeInsets.all(0.0),
                         child: Text(
                           "Search",
